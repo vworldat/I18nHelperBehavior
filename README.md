@@ -38,18 +38,19 @@ Add behavior to your propel models - either globally (automatically for all mode
 ```xml
 <!-- my/Bundle/Resources/config/schema.xml -->
 
-    <!-- globally for all i18n models -->
+    <!-- use globally for all i18n models -->
     <behavior name="c33s_i18n_helper">
         <parameter name="default_locales" value="de, en" />
     </behavior>
 
     <table name="book">
-        <!-- model-specific -->
         <behavior name="i18n">
             <!-- configure i18n as needed -->
             <parameter name="i18n_columns" value="title" />
             <parameter name="default_locale" value="de" />
         </behavior>
+        
+        <!-- use model-specific -->
         <behavior name="c33s_i18n_helper">
             <parameter name="default_locales" value="de, en" />
         </behavior>
@@ -136,9 +137,12 @@ class BaseBook extends BaseObject implements Persistent, I18nModelInterface
 
 ```
 
-In addition, all your i18n models will implement I18nModelInterface which is very helpful to recognize translatable objects whereever you have to. 
+In addition, all your i18n models will implement `I18nModelInterface` which is very helpful to recognize translatable objects whereever you have to. 
 
-The getI18n*() methods can be used with Symfony2 `collection` FormTypes (e.g. collection of `text` inputs), allowing you to edit all translations of a given field at once without any further code or configuration. 
+The `getI18n*()` methods can be used with Symfony2 `collection` FormTypes (e.g. collection of `text` inputs), allowing you to edit all translations of a given field at once without any further code or configuration. 
 
-*TODO: forms example.*
-*TODO: implement FormType guesser.*
+TODO:
+-----
+
+* forms example.
+* implement FormType guesser.
