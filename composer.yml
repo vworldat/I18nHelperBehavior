@@ -1,0 +1,24 @@
+name:           c33s/i18n-helper-behavior
+type:           propel-behavior
+description:    Helpful additions to default i18n propel behavior
+#keywords: []
+homepage:       "https://github.com/vworldat/I18nHelperBehavior"
+license:        ["MIT"]
+
+authors:
+  - name:       David
+    email:      office@web-emerge.com
+    homepage:   'http://web-emerge.com/'
+
+autoload:
+    psr-4:
+        'C33s\Behavior\I18nHelper\': 'I18nHelper/'
+    classmap:
+        - '/src'
+
+minimum-stability: stable
+
+require:
+    php: '>=5.3.3'
+    
+    propel/propel-bundle:                               '~1.2'
