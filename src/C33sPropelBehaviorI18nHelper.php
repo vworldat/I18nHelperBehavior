@@ -186,6 +186,37 @@ EOF;
         return $methods;
     }
 
+    public function queryMethods(OMBuilder $builder)
+    {
+        if (!$this->getTable()->hasBehavior('i18n')) {
+            return;
+        }
+
+        $methods = <<<EOF
+
+public function orderBy(\$columnName, \$order = Criteria::ASC)
+{
+    try {
+        return parent::orderBy(\$columnName, \$order);
+    } catch (PropelException \$e) {
+        return \$this->orderByI18nColumn(\$columnName, \$order);
+    }
+}
+
+protected function orderByI18nColumn(\$columnName, \$order = Criteria::ASC)
+{
+    \$i18nModel = \$this->getModelName().'I18n';
+    \$this->joinI18n();
+    \$i18nShortName = (new \ReflectionClass(\$i18nModel))->getShortName();
+
+    return \$this->orderBy(\$i18nShortName . '.' . \$columnName, \$order);
+}
+
+EOF;
+
+        return $methods;
+    }
+
     public function objectFilter(&$script)
     {
         if (!$this->getTable()->hasBehavior('i18n'))
